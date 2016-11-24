@@ -312,7 +312,9 @@ exports.default = Backbone.View.extend({
     el: "aside",
     collection: new _menu2.default(),
     initialize: function initialize() {
-        this.collection.fetch().done(this.render.bind(this));
+        this.collection.fetch().then(this.render.bind(this)).catch(function (err) {
+            return console.error(err, "error while fetching menu collection");
+        });
     },
 
     itemTemplate: _.template('<li><a class="<%= sclass %>" href="#doctype/<%= key %>"><%= key %> (<%= value %>)</a></li>'),
