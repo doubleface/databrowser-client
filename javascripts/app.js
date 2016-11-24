@@ -227,12 +227,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Backbone.Collection.extend({
     model: Backbone.Model,
     fetch: function fetch() {
-        return window.cozysdk.queryView("doctypes", "getsums", { group: true }).then(function (result) {
-            console.log(result, "result to see");
-            return result;
-        }).catch(function (err) {
-            console.error(err, "there was an error in the request");
-        });
+        return window.cozysdk.queryView("doctypes", "getsums", { group: true });
     }
 });
 });
@@ -320,14 +315,14 @@ exports.default = Backbone.View.extend({
         this.collection.fetch().done(this.render.bind(this));
     },
 
-    itemTemplate: _.template('<li><a class="<%= sclass %>" href="#doctype/<%= doctype %>"><%= doctype %> (<%= sum %>)</a></li>'),
+    itemTemplate: _.template('<li><a class="<%= sclass %>" href="#doctype/<%= key %>"><%= key %> (<%= value %>)</a></li>'),
     render: function render() {
         var _this = this;
 
         var html = "<ul>";
         this.collection.forEach(function (model) {
             var json = model.toJSON();
-            json.sclass = json.doctype === _this.selected ? "selected" : "";
+            json.sclass = json.key === _this.selected ? "selected" : "";
             html += _this.itemTemplate(json);
         }, this);
         html += "</ul>";
