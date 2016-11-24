@@ -227,7 +227,16 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Backbone.Collection.extend({
     model: Backbone.Model,
     fetch: function fetch() {
-        return window.cozysdk.queryView("doctypes", "getsums", { group: true });
+        var _this = this;
+
+        return new Promise(function (resolve, reject) {
+            window.cozysdk.queryView("doctypes", "getsums", { group: true }).then(function (result) {
+                _this.reset(result);
+                resolve(result);
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
     }
 });
 });
