@@ -266,8 +266,7 @@ exports.default = Backbone.View.extend({
     },
     getCols: function getCols(json) {
         var result = [];
-        if (json.length === 0) return result;
-        console.log(json, "records");
+        if (json.length === 0 || json[0] == null) return result;
         for (var i in json[0]) {
             result.push({
                 title: i,
@@ -301,7 +300,6 @@ exports.default = Backbone.View.extend({
         this.doctype = doctype;
         cozysdk.queryView(doctype.toLowerCase(), "all", {}, function (err, data) {
             if (err) return console.error(err, "error while fetching doctype");
-            console.log(data, "raw data");
             _this.collection.reset(data.map(function (record) {
                 return record.value;
             }));
