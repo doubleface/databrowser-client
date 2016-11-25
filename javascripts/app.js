@@ -301,6 +301,7 @@ exports.default = Backbone.View.extend({
         this.doctype = doctype;
         cozysdk.queryView(doctype.toLowerCase(), "all", {}, function (err, data) {
             if (err) return console.error(err, "error while fetching doctype");
+            console.log(data, "raw data");
             _this.collection.reset(data.map(function (record) {
                 return record.value;
             }));
