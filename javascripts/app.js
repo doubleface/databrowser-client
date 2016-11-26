@@ -266,7 +266,7 @@ exports.default = Backbone.View.extend({
     },
     getCols: function getCols(json) {
         var result = [];
-        if (json.length === 0 || json[0] == null) return false;
+        if (json.length === 0 || Object.keys(json[0]) == 0) return false;
         for (var i in json[0]) {
             result.push({
                 title: i,
